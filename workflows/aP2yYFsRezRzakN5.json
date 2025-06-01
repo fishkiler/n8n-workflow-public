@@ -1,0 +1,298 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Splunk Search Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent Parse Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Splunk Search Node": {
+      "main": [
+        [
+          {
+            "node": "Splunk Search GetID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Splunk Search GetID": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent Parse Events": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent Parse Events",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-01T00:07:59.726Z",
+  "id": "aP2yYFsRezRzakN5",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Splunk",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1640,
+        -120
+      ],
+      "id": "9458dd6d-6f31-425d-99a1-fcacaca95c56",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d3bc094-e545-4f13-8b4d-da2402d59f79",
+              "name": "results",
+              "value": "={{ $json.results }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -980,
+        -120
+      ],
+      "id": "8e98fe09-9475-42d5-8a1b-7a2cc69f8a1f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -620,
+        200
+      ],
+      "id": "5969e225-289c-423c-b647-e0cae72b36c5",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "UbnchxhYlfXC817L",
+          "name": "OpenAi MAIN"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sendTo": "jayoung@gmail.com",
+        "subject": "Windows Event Codes",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -520,
+        -120
+      ],
+      "id": "00241348-db9f-4cfe-888b-96f818691a93",
+      "name": "Gmail",
+      "webhookId": "1ffdfbf0-1784-44ee-8709-cae014af728c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "nMRNOtD0dtc6Ka4G",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Splunk With AI and n8n:\nTekstream Solutions\nJay Young \nSr. Splunk Consultant \n",
+        "height": 720,
+        "width": 1440,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1700,
+        -300
+      ],
+      "id": "d0032011-e490-4133-a7b7-de5308b4ec77",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "search": "search index=WinEventLogs EventCode=* earliest=-5h \n| stats count as total by EventCode\n| where total < 5\n| table EventCode total",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.splunk",
+      "typeVersion": 2,
+      "position": [
+        -1480,
+        -120
+      ],
+      "id": "dc92995c-cf59-4114-94a9-88d78e76d7bd",
+      "name": "Splunk Search Node",
+      "credentials": {
+        "splunkApi": {
+          "id": "B7jLSq00eDJzemcX",
+          "name": "Splunk account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getResult",
+        "searchJobId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splunk",
+      "typeVersion": 2,
+      "position": [
+        -1300,
+        -120
+      ],
+      "id": "350d6cf1-077c-4522-b93c-c7438c67771a",
+      "name": "Splunk Search GetID",
+      "credentials": {
+        "splunkApi": {
+          "id": "B7jLSq00eDJzemcX",
+          "name": "Splunk account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.results }}",
+        "options": {
+          "systemMessage": "You are a Splunk Administrator who reviews Windows EventCodes from log files. \nPlease include the EventCode Number and write a brief one-sentence explanation of the EventCode.\n\nThe severity Choices are as follows: \nHigh\nMedium\nLow\n\nPlease alphabetize the severity from High to Medium to Low.\nPlease highlight the High Severity in Red.\nPlease highlight the Medium Severity in Orange.\nPlease highlight the Low Severity in Green.\nBelow the severity list, please provide more information on fixes or possible causes for the High Severity Event Codes.\nPlease use a list format and an HTML output with a black background.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -820,
+        -120
+      ],
+      "id": "6e07e09e-0add-41b6-9718-d5aea0ab0472",
+      "name": "AI Agent Parse Events"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1140,
+        -120
+      ],
+      "id": "23a9e7b6-ddb9-4708-b559-58f13e6f3079",
+      "name": "Wait",
+      "webhookId": "2dcba925-ded3-4ed6-8800-8f6269801181"
+    },
+    {
+      "parameters": {
+        "model": "granite3.3:8b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        220
+      ],
+      "id": "044c35ff-6d6b-47ef-991b-7194ebbe488a",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "lRx9PVLzuujJQ8zo",
+          "name": "Ollama account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-01T15:02:29.000Z",
+  "versionId": "0d4f1eb0-00fc-4df7-9499-72489e209bb8"
+}
