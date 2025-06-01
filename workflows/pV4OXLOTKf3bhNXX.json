@@ -1,0 +1,834 @@
+{
+  "active": false,
+  "connections": {
+    "Google Drive OMI": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code Extract All",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres omi_processed": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Postgres ACTION",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres ACTION": {
+      "main": [
+        [
+          {
+            "node": "Loop Future",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Future": {
+      "main": [
+        [
+          {
+            "node": "Postgres1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code Future",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code Action": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code Extract All": {
+      "main": [
+        [
+          {
+            "node": "Postgres omi_processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code Future": {
+      "main": [
+        [
+          {
+            "node": "Loop Future",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres1": {
+      "main": [
+        [
+          {
+            "node": "Postgres2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres2": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-27T02:34:03.195Z",
+  "id": "pV4OXLOTKf3bhNXX",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "GetOMI",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1nJkJq24KYLBsdAxABOKiXE0jm8dOnpfw",
+          "mode": "list",
+          "cachedResultName": "OMI",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1nJkJq24KYLBsdAxABOKiXE0jm8dOnpfw"
+        },
+        "event": "fileUpdated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        -500
+      ],
+      "id": "570f5660-5d2c-41a3-8ca5-23526de07f1f",
+      "name": "Google Drive OMI",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "xn9siot1O2kXXUHo",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "28d96b90-7b5d-41a5-97f3-a16735ad792a",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1140,
+        -500
+      ],
+      "id": "548685a3-a1a5-4acc-ab94-3765b09d7245",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -1000,
+        -500
+      ],
+      "id": "9e030e0e-7e69-4c09-bb23-6350b48a94ba",
+      "name": "Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "xn9siot1O2kXXUHo",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -840,
+        -500
+      ],
+      "id": "9fb4bdd6-5685-45ca-8f6b-ac86a8273ff6",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract the data from the incoming items\nconst data = items[0].json.data;\n\n// Function to extract data based on dynamic keys\nfunction extractData(input) {\n    // Extract memory date\n    const memoryFromMatch = input.match(/Memory from (\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}\\+\\d{2}:\\d{2})/);\n    const memoryFrom = memoryFromMatch ? memoryFromMatch[1] : null;\n\n    let formattedMemoryFrom = null;\n    if (memoryFrom) {\n        const dateObj = new Date(memoryFrom);\n\n        const month = ('0' + (dateObj.getMonth() + 1)).slice(-2); // Month is 0 indexed\n        const day = ('0' + dateObj.getDate()).slice(-2);\n        const year = dateObj.getFullYear(); // Get full year\n        const hour = dateObj.getHours() % 12 || 12; // Convert to 12-hour format\n        const minute = ('0' + dateObj.getMinutes()).slice(-2);\n        const period = dateObj.getHours() >= 12 ? 'PM' : 'AM'; // Determine AM/PM\n\n        formattedMemoryFrom = `${month}-${day}-${year}-${hour}:${minute}${period}`;\n    }\n\n    // Extract title\n    const titleMatch = input.match(/Title: ([^\\n]+)/);\n    const title = titleMatch ? titleMatch[1].trim() : 'No Title Found';\n\n    // Extract transcript\n    const transcriptMatch = input.match(/Transcript:\\n([\\s\\S]*)/);\n    const transcript = transcriptMatch ? transcriptMatch[1].trim() : 'No Transcript Found';\n\n    return {\n        formattedMemoryFrom,\n        title,\n        transcript\n    };\n}\n\n// Call the extraction function\nconst extractedData = extractData(data);\n\n// Prepare output for n8n\nreturn [\n    {\n        json: {\n            Memory: extractedData.formattedMemoryFrom,\n            Title: extractedData.title,\n            Transcript: extractedData.transcript,\n        }\n    }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -700,
+        -620
+      ],
+      "id": "cd55b24e-9252-4da6-8f45-868002c7367e",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.memory }}\n{{ $json.title }}\n{{ $json.transcript }}\n",
+        "options": {
+          "systemMessage": "=You are an intelligent assistant that analyzes text to identify the structure and content of meetings. Based on the input provided, classify the content as either \"Meeting\" or \"Story.\" If the content relates to a meeting, extract the following details:\n\nMemory: [Date] at [Time]\nTitle: The title of the meeting or the main topic discussed.\nMeeting Summary: A brief overview of the meeting's purpose and key discussions.\nAction Items: Specific tasks assigned during the meeting, including responsible individuals and deadlines.\nFuture Meetings: Dates, times, and topics for any upcoming meetings mentioned.\nIf the input resembles a random story rather than a structured meeting, classify it as \"Story\" and provide a brief summary.\n\nInstructions:\n\nAnalyze the text for keywords and phrases that indicate meeting structure (e.g., \"title,\" \"action items,\" \"next meeting,\" \"summary,\" \"agenda\").\nFor each extracted action item, include the task, the person responsible, and any deadlines if mentioned.\nIF there are no action items please don't include the action items section.\nUse clear and concise language to summarize and classify the content accurately.\n\nClassification: [Meeting | Story]\nTitle: [Title of the meeting or main topic]\nSummary: [Brief overview of the content]\nAction Items:\n1. [Task] - [Responsible Person] - [Deadline]\n2. [Task] - [Responsible Person] - [Deadline]\n\nFuture Meetings:\n- [Date] at [Time]: [Topic]"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -380,
+        -360
+      ],
+      "id": "3f410605-31a3-47e5-b0c2-0b584d06994a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -460,
+        -140
+      ],
+      "id": "a051e4eb-d7bf-40f5-ab16-8aa95ab8cf9e",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "UbnchxhYlfXC817L",
+          "name": "OpenAi MAIN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "omi_summary",
+          "mode": "list",
+          "cachedResultName": "omi_summary"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "memory": "={{ $json.Memory }}",
+            "title": "={{ $json.Title }}",
+            "transcript": "={{ $json.Transcript }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "memory",
+              "displayName": "memory",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "transcript",
+              "displayName": "transcript",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -560,
+        -500
+      ],
+      "id": "71826ab4-c486-4cdd-8dbd-fe17101b7997",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "IDPtDfnIBmRnxB4q",
+          "name": "Postgres omi_memories"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "omi_processed",
+          "mode": "list",
+          "cachedResultName": "omi_processed"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "classification": "={{ $json.Classification }}",
+            "title": "={{ $json.Title }}",
+            "summary": "={{ $json.Summary }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "classification",
+              "displayName": "classification",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        80,
+        -480
+      ],
+      "id": "6dec041f-7e12-4047-bd18-9b03a13b74b9",
+      "name": "Postgres omi_processed",
+      "credentials": {
+        "postgres": {
+          "id": "FpNlrrsYzeSWzz7i",
+          "name": "Postgres OM bkup"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        220,
+        -300
+      ],
+      "id": "e823f64d-99d7-406e-a36d-4a5916701989",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "omi_action",
+          "mode": "list",
+          "cachedResultName": "omi_action"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "meeting_id": "={{ $('Postgres omi_processed').item.json.id }}",
+            "task": "={{ $json.task }}",
+            "responsible": "={{ $json.responsible }}",
+            "deadline": "={{ $json.deadline }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "meeting_id",
+              "displayName": "meeting_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "task",
+              "displayName": "task",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "responsible",
+              "displayName": "responsible",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "deadline",
+              "displayName": "deadline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        420,
+        -480
+      ],
+      "id": "738589e7-b83b-474b-9f36-9879a1068ec3",
+      "name": "Postgres ACTION",
+      "credentials": {
+        "postgres": {
+          "id": "IDPtDfnIBmRnxB4q",
+          "name": "Postgres omi_memories"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        620,
+        -300
+      ],
+      "id": "5a9d22b9-48ff-4a26-8a29-ec7b12ee91e1",
+      "name": "Loop Future"
+    },
+    {
+      "parameters": {
+        "jsCode": "const meetingData = [\n    {\n        \"Classification\": \"Meeting\",\n        \"Title\": \"Custom Data Field Extraction Discussion\",\n        \"Summary\": \"The meeting involves a discussion about extracting custom data fields from a file that includes key-value pairs. It specifically addresses the need to extract fields such as title, transcript, date, and memory in a required format.\",\n        \"ActionItems\": [\n            {\n                \"task\": \"1. Extract key-value pairs from the file\",\n                \"responsible\": \"[Responsible Person not specified]\",\n                \"deadline\": \"[Deadline not specified]\"\n            },\n            {\n                \"task\": \"2. Ensure memory is extracted in a certain format\",\n                \"responsible\": \"[Responsible Person not specified]\",\n                \"deadline\": \"[Deadline not specified]\"\n            }\n        ],\n        \"FutureMeetings\": [\n            \"No future meetings mentioned.\"\n        ]\n    }\n];\n\nconst actionItems = [];\n\n// Extract action items one at a time\nmeetingData.forEach(meeting => {\n    meeting.ActionItems.forEach(actionItem => {\n        actionItems.push({\n            json: {\n                task: actionItem.task,\n                responsible: actionItem.responsible,\n                deadline: actionItem.deadline\n            }\n        });\n    });\n});\n\n// Return all action items\nreturn actionItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -240
+      ],
+      "id": "10c6626f-029f-4672-88df-bf47950f40c4",
+      "name": "Code Action"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Sample output string\nconst output = `Classification: Meeting  \nTitle: Custom Data Field Extraction Discussion  \nSummary: The meeting involves a discussion about extracting custom data fields from a file that includes key-value pairs. It specifically addresses the need to extract fields such as title, transcript, date, and memory in a required format.  \nAction Items:  \n1. Extract key-value pairs from the file - [Responsible Person not specified] - [Deadline not specified]  \n2. Ensure memory is extracted in a certain format - [Responsible Person not specified] - [Deadline not specified]  \n\nFuture Meetings:  \n- No future meetings mentioned.`;\n\n// Function to parse the output string\nfunction parseMeetingOutput(output) {\n    const lines = output.split('\\n').map(line => line.trim());\n    \n    // Initialize variables\n    let classification, title, summary, actionItems = [], futureMeetings = [];\n\n    // Parse the lines\n    for (let line of lines) {\n        if (line.startsWith('Classification:')) {\n            classification = line.replace('Classification:', '').trim();\n        } else if (line.startsWith('Title:')) {\n            title = line.replace('Title:', '').trim();\n        } else if (line.startsWith('Summary:')) {\n            summary = line.replace('Summary:', '').trim();\n        } else if (line.startsWith('Action Items:')) {\n            // Action items may span multiple lines\n            let index = lines.indexOf(line) + 1;\n            while (index < lines.length && lines[index] && !lines[index].startsWith('Future Meetings:')) {\n                actionItems.push(lines[index]);\n                index++;\n            }\n        } else if (line.startsWith('Future Meetings:')) {\n            // Future meetings may span multiple lines\n            let index = lines.indexOf(line) + 1;\n            while (index < lines.length && lines[index]) {\n                futureMeetings.push(lines[index].replace('-', '').trim());\n                index++;\n            }\n        }\n    }\n\n    // Format action items\n    actionItems = actionItems.map((item) => {\n        const taskDetails = item.split(' - ');\n        return {\n            task: taskDetails[0] ? taskDetails[0] : 'Not specified',\n            responsible: taskDetails[1] ? taskDetails[1].trim() : 'Not specified',\n            deadline: taskDetails[2] ? taskDetails[2].trim() : 'Not specified',\n        };\n    });\n\n    return {\n        classification,\n        title,\n        summary,\n        actionItems,\n        futureMeetings\n    };\n}\n\n// Call the function to parse the output\nconst parsedData = parseMeetingOutput(output);\n\n// Prepare output for n8n\nreturn [\n    {\n        json: {\n            Classification: parsedData.classification,\n            Title: parsedData.title,\n            Summary: parsedData.summary,\n            ActionItems: parsedData.actionItems,\n            FutureMeetings: parsedData.futureMeetings,\n        }\n    }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -60,
+        -600
+      ],
+      "id": "3e39e11d-014e-4fbd-ac18-e25a25bb0303",
+      "name": "Code Extract All"
+    },
+    {
+      "parameters": {
+        "jsCode": "const meetingData = [\n    {\n        \"Classification\": \"Meeting\",\n        \"Title\": \"Custom Data Field Extraction Discussion\",\n        \"Summary\": \"The meeting involves a discussion about extracting custom data fields from a file that includes key-value pairs. It specifically addresses the need to extract fields such as title, transcript, date, and memory in a required format.\",\n        \"ActionItems\": [\n            {\n                \"task\": \"1. Extract key-value pairs from the file\",\n                \"responsible\": \"[Responsible Person not specified]\",\n                \"deadline\": \"[Deadline not specified]\"\n            },\n            {\n                \"task\": \"2. Ensure memory is extracted in a certain format\",\n                \"responsible\": \"[Responsible Person not specified]\",\n                \"deadline\": \"[Deadline not specified]\"\n            }\n        ],\n        \"FutureMeetings\": [\n            \"No future meetings mentioned.\"\n        ]\n    }\n];\n\nconst futureMeetings = [];\n\n// Extract future meetings\nmeetingData.forEach(meeting => {\n    meeting.FutureMeetings.forEach(meetingInfo => {\n        futureMeetings.push({\n            json: {\n                meeting_info: meetingInfo\n            }\n        });\n    });\n});\n\n// Return all future meetings\nreturn futureMeetings;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -240
+      ],
+      "id": "62cb512a-c3fa-400e-812b-fc6c94a1cc95",
+      "name": "Code Future"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "omi_future",
+          "mode": "list",
+          "cachedResultName": "omi_future"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "meeting_info": "={{ $('Code Extract All').item.json.FutureMeetings[0] }}",
+            "meeting_id": "={{ $('Postgres ACTION').item.json.meeting_id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "meeting_id",
+              "displayName": "meeting_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "meeting_info",
+              "displayName": "meeting_info",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        800,
+        -440
+      ],
+      "id": "3d96211e-e4e5-41d8-aac7-a1b8106edaf0",
+      "name": "Postgres1",
+      "credentials": {
+        "postgres": {
+          "id": "IDPtDfnIBmRnxB4q",
+          "name": "Postgres omi_memories"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "jayoung@gmail.com",
+        "subject": "omi_summary",
+        "message": "={{ $json.classification }}\n{{ $json.title }}\n{{ $json.summary }}\n{{ $json.task }}\n{{ $json.responsible }}\n{{ $json.deadline }}\n{{ $json.meeting_info }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1200,
+        -80
+      ],
+      "id": "83402387-3ce9-4c7f-862c-ef138caa9b09",
+      "name": "Gmail",
+      "webhookId": "8cd95e83-f7d8-4391-8bd6-c8d28528748f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "nMRNOtD0dtc6Ka4G",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT p.*,      -- all columns from omi_processed\n       a.*,      -- all columns from omi_action\n       f.*       -- all columns from omi_future\nFROM public.omi_processed p\nLEFT JOIN public.omi_action a ON a.meeting_id = p.id\nLEFT JOIN public.omi_future f ON f.meeting_id = p.id\nWHERE p.id = (\n    SELECT MAX(id) FROM public.omi_processed\n);",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1020,
+        -440
+      ],
+      "id": "0420f5ed-6c2e-4a9e-8b55-dc8404ccc9fb",
+      "name": "Postgres2",
+      "credentials": {
+        "postgres": {
+          "id": "IDPtDfnIBmRnxB4q",
+          "name": "Postgres omi_memories"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "6915765056",
+        "text": "={{ $('Google Drive OMI').item.json.createdTime }}\n{{ $json.classification }}\n{{ $json.title }}\n{{ $json.summary }}\n{{ $json.task }}\n{{ $json.responsible }}\n{{ $json.deadline }}\n{{ $json.meeting_info }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1240,
+        -440
+      ],
+      "id": "98cf317a-c460-4c19-b0ec-fec9236ddbcd",
+      "name": "Telegram",
+      "webhookId": "c091297d-2aad-4128-bd1e-096a896eac1a",
+      "credentials": {
+        "telegramApi": {
+          "id": "nWuPduIPP0mE9DxS",
+          "name": "Telegram multiviper_bot"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-31T22:31:04.000Z",
+  "versionId": "8fd92edb-d2b9-49f6-baee-72884c2e514f"
+}
