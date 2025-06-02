@@ -153,7 +153,7 @@
     },
     {
       "parameters": {
-        "sendTo": "jayoung@gmail.com",
+        "sendTo": "me@gmail.com",
         "subject": "Windows Event Codes",
         "message": "={{ $json.output }}",
         "options": {}
@@ -176,7 +176,7 @@
     },
     {
       "parameters": {
-        "content": "## Splunk With AI and n8n:\nTekstream Solutions\nJay Young \nSr. Splunk Consultant \n",
+        "content": "## Splunk With AI and n8n:\nCompany Solutions\nName \nJob \n",
         "height": 720,
         "width": 1440,
         "color": 5
